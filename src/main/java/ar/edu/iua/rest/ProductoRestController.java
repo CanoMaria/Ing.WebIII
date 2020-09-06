@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /*Se les llama controller por que mapean dos mundos,
@@ -36,4 +37,17 @@ public class ProductoRestController {
 			return new ResponseEntity<Producto>(HttpStatus.NOT_FOUND);// se devulve un 404 si hay un error
 		} 
 	}
+	
+	
+	//Devolver por descripcion
+		@GetMapping(value="/description", produces= MediaType.APPLICATION_JSON_VALUE) 
+		public ResponseEntity<Producto> loadByDescription(@RequestParam("desc")String desc){ 
+			try {
+				return new ResponseEntity<Producto>(productoBusiness.findByDescripcion(desc),HttpStatus.OK);//se devuelve un 200 si esta ok
+			} catch (BusinessException e) {
+				return new ResponseEntity<Producto>(HttpStatus.INTERNAL_SERVER_ERROR);// se devulve un 500 si hay un error
+			} catch (NotFoundException e) {
+				return new ResponseEntity<Producto>(HttpStatus.NOT_FOUND);// se devulve un 404 si hay un error
+			} 
+		}
 }

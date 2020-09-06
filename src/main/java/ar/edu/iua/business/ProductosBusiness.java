@@ -2,6 +2,8 @@ package ar.edu.iua.business;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +48,23 @@ public class ProductosBusiness implements IProductoBusiness {
 	public void delete(Long id) throws NotFoundException, BusinessException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Producto findByDescripcion(String descripcionProducto) throws NotFoundException, BusinessException {
+		Optional<Producto> op= null; //creo una veriable vacia que puede devolver un producto
+		try {
+		
+			//log.info("Getting by Description"); DUDAAAA ACA EL LOG QUE ES ???
+			op= productoDAO.findByDescripcion(descripcionProducto);
+			
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		if(!op.isPresent()) {
+			throw new BusinessException("No se encuentra el producto con descripcion: "+ descripcionProducto);
+		}
+		return op.get();
 	}
 
 }

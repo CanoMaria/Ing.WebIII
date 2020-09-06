@@ -19,4 +19,6 @@ public interface IProductoBusiness {
 	public Producto safe(Producto producto) throws BusinessException;//se lo envia a la bd y lo retorna para que me de un id
 	//----Borrar por id-----------
 	public void delete(Long id) throws NotFoundException,BusinessException;
+	//----Devuelve un Producto-------
+	public Producto findByDescripcion(String descripcionProducto) throws NotFoundException,BusinessException;
 }
