@@ -114,4 +114,16 @@ public class ProductoRestController {
 				return new ResponseEntity<Producto>(HttpStatus.NOT_FOUND);// se devulve un 404 si hay un error
 			} 
 		}
+	//Devolver por precio:  curl "http://localhost:8080/api/v1/productos/description?desc=rica"
+		@GetMapping(value="/precio", produces= MediaType.APPLICATION_JSON_VALUE) 
+		public ResponseEntity<Producto> loadByPrecio(@RequestParam("prec")Double prec){ 
+			try {
+				return new ResponseEntity<Producto>(productoBusiness.findByPrecioLista(prec),HttpStatus.OK);//se devuelve un 200 si esta ok
+			} catch (BusinessException e) {
+				log.error(e.getMessage(),e);
+				return new ResponseEntity<Producto>(HttpStatus.INTERNAL_SERVER_ERROR);// se devulve un 500 si hay un error
+			} catch (NotFoundException e) {
+				return new ResponseEntity<Producto>(HttpStatus.NOT_FOUND);// se devulve un 404 si hay un error
+			} 
+		}
 }

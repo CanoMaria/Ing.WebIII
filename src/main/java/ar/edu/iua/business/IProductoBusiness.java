@@ -24,8 +24,11 @@ public interface IProductoBusiness {
 	//----Borrar por id-----------
 	public void delete(Long id) throws NotFoundException,BusinessException;
 	
-	//----Devuelve un Producto-------
+	//----Devuelve un Producto de acuerdo a la Descripcion-------
 	public Producto findByDescripcion(String descripcionProducto) throws NotFoundException,BusinessException;
+	
+	//----Devuelve un Producto de acuerdo a el precio -------
+	public Producto findByPrecioLista(Double precio) throws NotFoundException,BusinessException;
 
 	//----Devuelve un Producto deacuerd a el nombre o descripcion que le mandemos-------
 	public List<Producto> list(String parte) throws BusinessException;

@@ -103,4 +103,23 @@ public class ProductosBusiness implements IProductoBusiness {
 		}
 	}
 
+	@Override
+	public Producto findByPrecioLista(Double precio) throws NotFoundException, BusinessException {
+		Optional<Producto> op= null; //creo una veriable vacia que puede devolver un producto
+		try {
+		
+			//log.info("Getting by Description"); DUDAAAA ACA EL LOG QUE ES ???
+			op= productoDAO.findByPrecioLista(precio);
+			
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		if(!op.isPresent()) {
+			throw new BusinessException("No se encuentra el producto con descripcion: "+ precio);
+		}
+		return op.get();
+	}
+
+	
+
 }

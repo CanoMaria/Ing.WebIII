@@ -12,6 +12,6 @@ import ar.edu.iua.model.Producto;
 public interface ProductoRepository extends JpaRepository<Producto,Long>{
 	
 	Optional <Producto> findByDescripcion(String descripcionProducto);
+	Optional <Producto> findByPrecioLista(Double precio);
 	public List<Producto> findByNombreContainingOrDescripcionContainingOrderByNombreDesc(String nombre, String Descripcion);
-	
 }
