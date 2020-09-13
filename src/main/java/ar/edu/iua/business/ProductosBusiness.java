@@ -2,7 +2,10 @@ package ar.edu.iua.business;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import ar.edu.iua.business.exception.BusinessException;
@@ -32,20 +35,91 @@ public class ProductosBusiness implements IProductoBusiness {
 
 	@Override
 	public List<Producto> list() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return productoDAO.findAll();
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
 	}
 
 	@Override
-	public Producto safe(Producto producto) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public Producto add(Producto producto) throws BusinessException {
+		try {
+			return productoDAO.save(producto);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+	}
+	
+	@Override
+	public Producto update(Producto producto) throws NotFoundException, BusinessException {
+		load(producto.getId()); // verifico que este el producto
+		try {
+			return productoDAO.save(producto);
+			
+		} catch (EmptyResultDataAccessException el ) {
+			throw new NotFoundException(el);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
 	}
 
 	@Override
 	public void delete(Long id) throws NotFoundException, BusinessException {
-		// TODO Auto-generated method stub
+		try {
+			productoDAO.deleteById(id);;
+		} catch (EmptyResultDataAccessException el ) {
+			throw new NotFoundException(el);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
 
 	}
+
+	@Override
+	public Producto findByDescripcion(String descripcionProducto) throws NotFoundException, BusinessException {
+		Optional<Producto> op= null; //creo una veriable vacia que puede devolver un producto
+		try {
+		
+			//log.info("Getting by Description"); DUDAAAA ACA EL LOG QUE ES ???
+			op= productoDAO.findByDescripcion(descripcionProducto);
+			
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		if(!op.isPresent()) {
+			throw new BusinessException("No se encuentra el producto con descripcion: "+ descripcionProducto);
+		}
+		return op.get();
+	}
+	
+
+	@Override
+	public List<Producto> list(String parte) throws BusinessException {
+		try {
+			return productoDAO.findByNombreContainingOrDescripcionContainingOrderByNombreDesc(parte,parte);// uno para nombre y otro para descripcion
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+	}
+
+	@Override
+	public Producto findByPrecioLista(Double precio) throws NotFoundException, BusinessException {
+		Optional<Producto> op= null; //creo una veriable vacia que puede devolver un producto
+		try {
+		
+			//log.info("Getting by Description"); DUDAAAA ACA EL LOG QUE ES ???
+			op= productoDAO.findByPrecioLista(precio);
+			
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		if(!op.isPresent()) {
+			throw new BusinessException("No se encuentra el producto con descripcion: "+ precio);
+		}
+		return op.get();
+	}
+
+	
 
 }

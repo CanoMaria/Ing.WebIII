@@ -16,7 +16,20 @@ public interface IProductoBusiness {
 	public List<Producto> list() throws BusinessException;
 	
 	//----Guardar un Producto------
-	public Producto safe(Producto producto) throws BusinessException;//se lo envia a la bd y lo retorna para que me de un id
+	public Producto add(Producto producto) throws BusinessException;//se lo envia a la bd y lo retorna para que me de un id
+	
+	//----Guardar un Producto------
+	public Producto update(Producto producto) throws NotFoundException,BusinessException;
+	
 	//----Borrar por id-----------
 	public void delete(Long id) throws NotFoundException,BusinessException;
+	
+	//----Devuelve un Producto de acuerdo a la Descripcion-------
+	public Producto findByDescripcion(String descripcionProducto) throws NotFoundException,BusinessException;
+	
+	//----Devuelve un Producto de acuerdo a el precio -------
+	public Producto findByPrecioLista(Double precio) throws NotFoundException,BusinessException;
+
+	//----Devuelve un Producto deacuerd a el nombre o descripcion que le mandemos-------
+	public List<Producto> list(String parte) throws BusinessException;
 }
