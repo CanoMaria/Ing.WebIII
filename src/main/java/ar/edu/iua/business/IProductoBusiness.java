@@ -18,7 +18,7 @@ public interface IProductoBusiness {
 	//----Guardar un Producto------
 	public Producto add(Producto producto) throws BusinessException;//se lo envia a la bd y lo retorna para que me de un id
 	
-	//----Guardar un Producto------
+	//----Editar un Producto------
 	public Producto update(Producto producto) throws NotFoundException,BusinessException;
 	
 	//----Borrar por id-----------
