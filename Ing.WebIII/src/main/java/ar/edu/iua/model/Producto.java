@@ -2,11 +2,15 @@ package ar.edu.iua.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /*Serializable= le dice a java que las instancias de los obj de la clase las almacene en la ram 
@@ -33,6 +37,12 @@ public class Producto implements Serializable{
 	@Column(columnDefinition= "TINYINT DEFAULT 0")
 	private Boolean enStock;
 	
+	@OneToOne(cascade =  CascadeType.ALL)
+	private ProductoDetalle productoDetalle;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "proveedor_id")
+    private Proveedor proveedor;
 	
 	public long getId() {
 		return id;
@@ -64,6 +74,19 @@ public class Producto implements Serializable{
 	public void setEnStock(Boolean enStock) {
 		this.enStock = enStock;
 	}
-	
+	public ProductoDetalle getProductoDetalle() {
+        return productoDetalle;
+    }
+
+    public void setProductoDetalle(ProductoDetalle productoDetalle) {
+        this.productoDetalle = productoDetalle;
+    }
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
 
 }
