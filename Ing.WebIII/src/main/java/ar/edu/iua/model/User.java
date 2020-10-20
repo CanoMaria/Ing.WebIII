@@ -1,10 +1,11 @@
 package ar.edu.iua.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,14 +13,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="users")
+@JsonIgnoreProperties()
 public class User implements Serializable{
 	
 	private static final long serialVersionUID = -5700258639185317869L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(length = 80, nullable = false)
+	private String nombre;
 
+	@Column(length = 300, nullable = false, unique = true)
+	private String email;
+
+	@Column(length = 80, nullable = false)
+	private String apellido;
+
+	@Column(length = 30, nullable = false, unique = true)
+	private String username;
+
+	@Column(length = 100)
+	private String password;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -67,25 +93,6 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	@Column(length = 80, nullable = false)
-	private String nombre;
-
-	@Column(length = 300, nullable = false, unique = true)
-	private String email;
-
-	@Column(length = 80, nullable = false)
-	private String apellido;
-
-	@Column(length = 30, nullable = false, unique = true)
-	private String username;
-
-	@Column(length = 100)
-	private String password;
 	
 	@ManyToOne
 	@JoinColumn(name="id_rol_principal")
@@ -94,10 +101,21 @@ public class User implements Serializable{
 	public Rol getRolPrincipal() {
 		return rolPrincipal;
 	}
+	/*@OneToMany(targetEntity=Venta.class, mappedBy="user", fetch = FetchType.LAZY)
+    private List<Venta> ventasList;
+	
+	public List<Venta> getVentasList() {
+		return ventasList;
+	}
+
+	public void setVentasList(List<Venta> ventasList) {
+		this.ventasList = ventasList;
+	}*/
 
 	public void setRolPrincipal(Rol rolPrincipal) {
 		this.rolPrincipal = rolPrincipal;
 	}
+	
 	
 	@ManyToMany
 	@JoinTable(

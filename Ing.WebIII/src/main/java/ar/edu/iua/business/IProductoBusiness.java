@@ -32,4 +32,6 @@ public interface IProductoBusiness {
 
 	//----Devuelve un Producto deacuerd a el nombre o descripcion que le mandemos-------
 	public List<Producto> list(String parte) throws BusinessException;
+		
+
 }

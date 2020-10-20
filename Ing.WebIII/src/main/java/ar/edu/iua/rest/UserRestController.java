@@ -25,7 +25,7 @@ import ar.edu.iua.business.exception.NotFoundException;
 import ar.edu.iua.model.User;
 
 @RestController
-@RequestMapping(value=constantes.URL_USERS)
+@RequestMapping(value=Constantes.URL_USERS)
 public class UserRestController {
 	
 	private Logger log=LoggerFactory.getLogger(this.getClass());
@@ -63,7 +63,7 @@ public class UserRestController {
 		try {
 			userBusiness.add(user);
 			HttpHeaders responseHeaders = new HttpHeaders();
-			responseHeaders.set("location", constantes.URL_USERS + "/" + user.getId());
+			responseHeaders.set("location", Constantes.URL_USERS + "/" + user.getId());
 			return new ResponseEntity<String>(responseHeaders, HttpStatus.CREATED);
 		} catch (BusinessException e) {
 			log.error(e.getMessage(), e);

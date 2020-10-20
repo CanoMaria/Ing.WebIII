@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  *  mapea la url con una funcion java*/
 
 @RestController
-@RequestMapping(value=constantes.URL_PRODUCTOS)
+@RequestMapping(value=Constantes.URL_PRODUCTOS)
 public class ProductoRestController {
 	
 	private Logger log=LoggerFactory.getLogger(this.getClass());
@@ -69,7 +69,7 @@ public class ProductoRestController {
 			try {
 				productoBusiness.add(producto); 
 				HttpHeaders responseHeaders = new HttpHeaders(); // creo una cabecera que devolvere con los datos del producto
-				responseHeaders.set("location", constantes.URL_PRODUCTOS+"/"+ producto.getId()); // esta cabecera "location" contiene la url del producto y el id pero NO el producto
+				responseHeaders.set("location", Constantes.URL_PRODUCTOS+"/"+ producto.getId()); // esta cabecera "location" contiene la url del producto y el id pero NO el producto
 				return new ResponseEntity<String>(responseHeaders,HttpStatus.CREATED);
 			} catch (BusinessException e) {
 				log.error(e.getMessage(),e);
