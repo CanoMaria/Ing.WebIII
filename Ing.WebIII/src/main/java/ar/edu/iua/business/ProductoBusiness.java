@@ -3,7 +3,6 @@ package ar.edu.iua.business;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import ar.edu.iua.model.Producto;
 import ar.edu.iua.model.persistence.ProductoRepository;
 
 @Service //hace candidato para ser instanciado
-public class ProductosBusiness implements IProductoBusiness {
+public class ProductoBusiness implements IProductoBusiness {
 	
 	@Autowired
 	private ProductoRepository productoDAO; //llamo a la clase que conecta con la bd

@@ -3,74 +3,125 @@ package ar.edu.iua.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+//import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "ventas")
+@Table(name="venta")
+
 public class Venta implements Serializable{
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4748777937474004438L;
+	private static final long serialVersionUID = 1861830004923572175L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@Column(name = "fecha", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private Long id;
+
+	@Column(name ="fecha", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = true)
 	private Date fecha;
+
 	@Column(length = 150, nullable = false)
-	private double precioTotal;
-	@Column(length = 120, nullable = false)
-	private int cantTotalProductos;
+	private Double precioTotalVenta;
+
+	// @Column(length = 120, nullable = false)
+	// private int cantTotalProductos;
+/*
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private User user;
+*/
+	@ManyToMany
+	@JoinTable(name = "producto_venta", joinColumns = { @JoinColumn(name = "id_venta", referencedColumnName = "id") },
+	inverseJoinColumns = { @JoinColumn(name = "id_producto", referencedColumnName = "id") })
+	private List<Producto> productoList;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
 	
-	public int getId() {
+	/*
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(name = "fecha", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private Date fecha;
+	
+	@Column
+	private Double precioTotalVenta;
+
+	
+	@Column
+	private int cantidadTotalProducto;
+	*/
+	/*
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private User user;
+	*/
+	/*
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="user_id")
+	private User user;
+	*/
+	
+	
+	/*
+	@OneToMany(mappedBy = "venta")
+	Set<VentaDetalle> ventaDetalle;
+	
+	*/
+
+	/*
+	 * **********************************************************
+	 * */
+	/*
+	public void setUser(User user) {
+		this.user = user;
+	}
+	*/
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public List<Producto> getProductoList() {
+		return productoList;
+	}
+
+	public void setProductoList(List<Producto> productoList) {
+		this.productoList = productoList;
+	}
+
+	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Date getFecha() {
 		return fecha;
 	}
+
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public double getPrecioTotal() {
-		return precioTotal;
+
+	public Double getPrecioTotalVenta() {
+		return precioTotalVenta;
 	}
-	public void setPrecioTotal(double precioTotal) {
-		this.precioTotal = precioTotal;
+
+	public void setPrecioTotalVenta(Double precioTotal) {
+		this.precioTotalVenta = precioTotal;
 	}
-	public int getCantTotalProductos() {
-		return cantTotalProductos;
+/*
+	public int getCantidadTotalProducto() {
+		return cantidadTotalProducto;
 	}
-	public void setCantTotalProductos(int cantTotalProductos) {
-		this.cantTotalProductos = cantTotalProductos;
+
+	public void setCantidadTotalProducto(int cantidadTodalProducto) {
+		this.cantidadTotalProducto = cantidadTodalProducto;
 	}
-	public User getUser() {
-        return user;
-    }
-	 public void setUser(User user) {
-	    this.user = user;
-	}
-	
+
+
+*/
 }

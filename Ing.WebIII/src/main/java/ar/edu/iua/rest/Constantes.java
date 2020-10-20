@@ -1,6 +1,6 @@
 package ar.edu.iua.rest;
 
-public class constantes {
+public class Constantes {
 
 	//---Esto indica que se los quiere exponer como servicios web---
 	public static final String URL_API ="/api";
@@ -9,4 +9,5 @@ public class constantes {
 	
 	public static final String URL_PRODUCTOS= URL_BASE +"/productos";
 	public static final String URL_USERS= URL_BASE +"/users";
+	public static final String URL_VENTAS = URL_BASE + "/ventas";
 }
