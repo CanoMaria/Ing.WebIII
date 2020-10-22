@@ -17,13 +17,16 @@ public class BackendApplication extends SpringBootServletInitializer implements 
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
+	@Autowired
+	private IPruebaPerfil pruebaPerfil;
+	
 	@Value("${spring.datasource.url:pepe}")
 	private String springDatasourceUrl;
-
 	
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("DataSource URL: {}", springDatasourceUrl);
+		pruebaPerfil.mensaje();
 	}
 	
 	
@@ -38,6 +41,4 @@ Negocio
 Servicios WEB (REST)
   | --> servicio 1   |
   | --> servicio 2   | seguridad
-  | --> servicio N   V
-*/
-
+  | --> servicio N   */
